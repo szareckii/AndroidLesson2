@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SettingsActivity">
+
+    <EditText
+        android:id="@+id/editNameChooseCity"
+        android:layout_width="243dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="@string/hintChooseCity"
+        android:inputType="textCapWords"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBtnGoBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnGoBack"
+        app:layout_constraintTop_toTopOf="@+id/imgBtnGoBack" />
+
+    <ImageButton
+        android:id="@+id/imageButtonConfirmChooseCity"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/editNameChooseCity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editNameChooseCity"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/check" />
+
+    <ImageButton
+        android:id="@+id/imgBtnGoBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSetVisibleWind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxSetVisibleWind"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnGoBack"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSetVisiblePressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/checkBoxSetVisiblePressure"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxSetVisibleWind"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSetVisibleWind" />
+
+    <Switch
+        android:id="@+id/monitored_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/switchTypeDegree"
+        android:textOff="@string/celsius"
+        android:textOn="@string/fahrenheit"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/Units"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxSetVisiblePressure"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSetVisiblePressure" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="145dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnGoBack"
+        app:layout_constraintTop_toBottomOf="@+id/editNameChooseCity">
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radioBtnMoscow" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radioBtnLondon" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radioBtnNewYork" />
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
