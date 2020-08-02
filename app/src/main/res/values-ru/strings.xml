@@ -49,4 +49,9 @@
     <string name="radioBtnMoscow">Москва</string>
     <string name="radioBtnLondon">Лондон</string>
     <string name="radioBtnNewYork">Нью-Йорк</string>
+    <string name="todo">Картинка с типом погоды</string>
+    <string name="textCountHoursBetweenForecasts">Количество часов между прогнозами: </string>
+    <string name="ValueCountHoursBetweenForecasts">TextView</string>
+    <string name="todoImageWithBack">Картинка назад</string>
+    <string name="todoImageWithOk">Картинка OK</string>
 </resources>

@@ -17,13 +17,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgBtnGoBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.192"
+
         app:layout_constraintStart_toEndOf="@+id/imgBtnGoBack"
-        app:layout_constraintTop_toTopOf="@+id/imgBtnGoBack" />
+        app:layout_constraintTop_toTopOf="@+id/imgBtnGoBack"
+        android:importantForAutofill="no"/>
 
     <ImageButton
         android:id="@+id/imageButtonConfirmChooseCity"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
@@ -31,87 +33,118 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editNameChooseCity"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/check" />
+        app:srcCompat="@drawable/check"
+        android:contentDescription="@string/todoImageWithOk" />
 
     <ImageButton
         android:id="@+id/imgBtnGoBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todoImageWithBack" />
 
     <CheckBox
         android:id="@+id/checkBoxSetVisibleWind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="@string/checkBoxSetVisibleWind"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/imgBtnGoBack"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupPopularCities" />
 
     <CheckBox
         android:id="@+id/checkBoxSetVisiblePressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:checked="true"
         android:text="@string/checkBoxSetVisiblePressure"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/checkBoxSetVisibleWind"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxSetVisibleWind" />
 
     <Switch
-        android:id="@+id/monitored_switch"
+        android:id="@+id/switchSetTypeUnitDegree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:showText="true"
         android:text="@string/switchTypeDegree"
         android:textOff="@string/celsius"
         android:textOn="@string/fahrenheit"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/textSetTypeUnitDegree"
+        app:layout_constraintTop_toBottomOf="@+id/textSetTypeUnitDegree" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textSetTypeUnitDegree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/Units"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/checkBoxSetVisiblePressure"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxSetVisiblePressure" />
+        app:layout_constraintStart_toStartOf="@+id/textCountHoursBetweenForecasts"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarCountHoursBetweenForecasts" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupPopularCities"
         android:layout_width="145dp"
         android:layout_height="96dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/imgBtnGoBack"
         app:layout_constraintTop_toBottomOf="@+id/editNameChooseCity">
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/radioButtonCityMoscow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/radioBtnMoscow" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioButtonCityLondon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/radioBtnLondon" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/radioButtonCityNewYork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/radioBtnNewYork" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/textCountHoursBetweenForecasts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textCountHoursBetweenForecasts"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxSetVisiblePressure"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSetVisiblePressure" />
+
+    <SeekBar
+        android:id="@+id/seekBarCountHoursBetweenForecasts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCountHoursBetweenForecasts" />
+
+    <TextView
+        android:id="@+id/textValueCountHoursBetweenForecasts"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/ValueCountHoursBetweenForecasts"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toEndOf="@+id/textCountHoursBetweenForecasts"
+        app:layout_constraintTop_toTopOf="@+id/textCountHoursBetweenForecasts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
