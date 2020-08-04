@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textPressurePlusThreeHours;
     private ImageView imgBtnSettings;
     private static final String TAG = "myLogs";
+    private final static int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,9 +143,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+
+//                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != REQUEST_CODE) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        if (resultCode == RESULT_OK){
+            textCity.setText(data.getStringExtra("NameCity"));
+        }
     }
 
     /*Метод задания погоды*/

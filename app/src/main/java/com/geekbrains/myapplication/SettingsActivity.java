@@ -3,6 +3,7 @@ package com.geekbrains.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,6 +21,9 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
     private SeekBar seekBarCountHoursBetweenForecasts;
     private final String TAG = "myLogs";
     private int countHoursBetweenForecasts = 3;
+    private TextView textBtnMoscow;
+    private TextView textBtnLondon;
+    private TextView textBtnNewYork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,29 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
 
         seekBarCountHoursBetweenForecasts.setOnSeekBarChangeListener(this);
         setBackBtnClickBehavior();
-        setConfirmChooseCityBtnClickBehavior();
         setChooseCityBtnEnterClickBehavior();
+        textBtnMoscow.setOnClickListener(new cityNameBtnClickListener());
+        textBtnLondon.setOnClickListener(new cityNameBtnClickListener());
+        textBtnNewYork.setOnClickListener(new cityNameBtnClickListener());
+    }
+
+    public class cityNameBtnClickListener implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View view)
+        {
+            TextView tv = (TextView)view;
+            switch (tv.getId()) {
+                case R.id.textCityMoscow: editNameChooseCity.setText(textBtnMoscow.getText().toString());
+                    break;
+                case R.id.textCityLondon: editNameChooseCity.setText(textBtnLondon.getText().toString());
+                    break;
+                case R.id.textCityNewYork: editNameChooseCity.setText(textBtnNewYork.getText().toString());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
@@ -126,16 +151,15 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         imgBtnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-            }
-        });
-    }
-
-    /*Метод подтверждения выбора города*/
-    private void setConfirmChooseCityBtnClickBehavior() {
-        imgBtnGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                if (nameCity == null && !editNameChooseCity.getText().toString().equals("")) {
+                    nameCity = editNameChooseCity.getText().toString();
+                }
+                if (nameCity != null) {
+                    Intent intentResult = new Intent();
+                    intentResult.putExtra("NameCity", nameCity);
+                    setResult(RESULT_OK, intentResult);
+                    Log.d(TAG, "SettingsAct. NameCity: " + nameCity);
+                }
                 finish();
             }
         });
@@ -148,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if(keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    String nameCity = editNameChooseCity.getText().toString();
+                    nameCity = editNameChooseCity.getText().toString();
                     return true;
                 }
                 return false;
@@ -162,6 +186,8 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         editNameChooseCity = findViewById(R.id.editNameChooseCity);
         textValueCountHoursBetweenForecasts = findViewById(R.id.textValueCountHoursBetweenForecasts);
         seekBarCountHoursBetweenForecasts = findViewById(R.id.seekBarCountHoursBetweenForecasts);
-
+        textBtnMoscow = findViewById(R.id.textCityMoscow);
+        textBtnLondon = findViewById(R.id.textCityLondon);
+        textBtnNewYork = findViewById(R.id.textCityNewYork);
     }
 }
