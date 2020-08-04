@@ -1,14 +1,15 @@
 package com.geekbrains.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.annotation.NonNull;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textPressurePlusTwoHours;
     private TextView textPressurePlusThreeHours;
     private ImageView imgBtnSettings;
+    private static final String TAG = "myLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,80 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
 
+        String instanceState;
+        if (savedInstanceState == null){
+            instanceState = "Первый запуск!";
+        }
+        else{
+            instanceState = "Повторный запуск!";
+        }
+        Toast.makeText(getApplicationContext(), instanceState + " - onCreate()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "MainAct." + instanceState + " - onCreate()");
+
         String cityName = getString(R.string.cityNameMoscow);
         textCity.setText(cityName);
         setTemp(cityName);
         findCurrentHour();
         setSettingsBtnClickBehavior();
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onStart()");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle saveInstanceState){
+        super.onRestoreInstanceState(saveInstanceState);
+        Toast.makeText(getApplicationContext(), "Повторный запуск!! - onRestoreInstanceState()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. Повторный запуск!! - onRestoreInstanceState()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onPause()");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle saveInstanceState){
+        super.onSaveInstanceState(saveInstanceState);
+        Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onSaveInstanceState()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onStop()");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onRestart()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"MainAct. onDestroy()");
+    }
+
 
     /*Метод открытия окна с настройками*/
     private void setSettingsBtnClickBehavior() {
@@ -188,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar cPlusTwoHours = Calendar.getInstance();
         cPlusTwoHours.set(Calendar.MINUTE, 0);
-        cPlusTwoHours.add(Calendar.HOUR, 6);
+        cPlusTwoHours.add(Calendar.HOUR, 6) ;
 
         Calendar cPlusThreeHours = Calendar.getInstance();
         cPlusThreeHours.set(Calendar.MINUTE, 0);

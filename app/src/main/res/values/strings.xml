@@ -49,5 +49,9 @@
     <string name="radioBtnMoscow">Moscow</string>
     <string name="radioBtnLondon">London</string>
     <string name="radioBtnNewYork">New York</string>
-    <string name="todo">TODO</string>
+    <string name="todo">Image with type weather</string>
+    <string name="textCountHoursBetweenForecasts">Count of hours between forecasts: </string>
+    <string name="ValueCountHoursBetweenForecasts">TextView</string>
+    <string name="todoImageWithBack">Image Back</string>
+    <string name="todoImageWithOk">Image OK</string>
 </resources>

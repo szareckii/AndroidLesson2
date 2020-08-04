@@ -230,7 +230,7 @@
         android:layout_height="19dp"
         android:gravity="end"
         android:text="@string/textWindPlusThreeHours"
-        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNull4"
         app:layout_constraintTop_toBottomOf="@+id/textTempPlusThreeHours" />
 
     <TextView
@@ -448,7 +448,7 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:text="@string/textUnitWindS"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintStart_toEndOf="@+id/textViewNull4"
         app:layout_constraintTop_toBottomOf="@+id/textTempPlusThreeHours" />
 
     <TextView
@@ -515,7 +515,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textTempPlusTwoHours" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textViewNull4"
         android:layout_width="2dp"
         android:layout_height="19dp"
         android:text="@string/textNull"
