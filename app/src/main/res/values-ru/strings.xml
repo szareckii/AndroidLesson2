@@ -46,9 +46,6 @@
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
     <string name="units">Единицы измерения</string>
-    <string name="radio_btn_moscow">Москва</string>
-    <string name="radio_btn_london">Лондон</string>
-    <string name="radio_btn_newyork">Нью-Йорк</string>
     <string name="todo">Картинка с типом погоды</string>
     <string name="text_count_hours_between_forecasts">Количество часов между прогнозами: </string>
     <string name="value_count_hours_between_forecasts">TextView</string>
@@ -57,4 +54,5 @@
     <string name="city_moscow">Москва</string>
     <string name="city_london">Лондон</string>
     <string name="city_newyork">Нью-Йорк</string>
+    <string name="weather_from_yandex">Погода от яндекса</string>
 </resources>

@@ -8,22 +8,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
     private ImageButton imgBtnGoBack;
-    private String nameCity;
+    private String cityName;
     private TextView editNameChooseCity;
     private TextView textValueCountHoursBetweenForecasts;
     private SeekBar seekBarCountHoursBetweenForecasts;
-    private final String TAG = "myLogs";
+    private static final String TAG = "myLogs";
     private int countHoursBetweenForecasts = 3;
     private TextView textBtnMoscow;
     private TextView textBtnLondon;
     private TextView textBtnNewYork;
+    private CheckBox checkBoxSetVisibleWind;
+    private CheckBox checkBoxSetVisiblePressure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +53,29 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         textBtnMoscow.setOnClickListener(new cityNameBtnClickListener());
         textBtnLondon.setOnClickListener(new cityNameBtnClickListener());
         textBtnNewYork.setOnClickListener(new cityNameBtnClickListener());
+
+        setSettings();
     }
 
+    /*Метод получения из ActiveMain и выставление текущих настроек*/
+    private void setSettings() {
+        cityName = Objects.requireNonNull(getIntent().getExtras()).getString("CityName");
+        editNameChooseCity.setText(cityName);
+
+        if (getIntent().getExtras().getBoolean("WindyVisible")) {
+            checkBoxSetVisibleWind.setChecked(true);
+        } else {
+            checkBoxSetVisibleWind.setChecked(false);
+        }
+
+        if(getIntent().getExtras().getBoolean("PressureVisible")) {
+            checkBoxSetVisiblePressure.setChecked(true);
+        } else {
+            checkBoxSetVisiblePressure.setChecked(false);
+        }
+    }
+
+    /*Метод-слушатель нажатия по кнопкам с названиями городов */
     public class cityNameBtnClickListener implements View.OnClickListener
     {
         @Override
@@ -151,15 +177,35 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         imgBtnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameCity == null && !editNameChooseCity.getText().toString().equals("")) {
-                    nameCity = editNameChooseCity.getText().toString();
+                Intent intentResult = new Intent();
+                if (!editNameChooseCity.getText().toString().equals("")) {
+                    cityName = editNameChooseCity.getText().toString();
                 }
-                if (nameCity != null) {
-                    Intent intentResult = new Intent();
-                    intentResult.putExtra("NameCity", nameCity);
-                    setResult(RESULT_OK, intentResult);
-                    Log.d(TAG, "SettingsAct. NameCity: " + nameCity);
+
+                if (cityName != null) {
+                    intentResult.putExtra("CityName", cityName);
+                    Log.d(TAG, "SettingsAct. CityName: " + cityName);
                 }
+
+                if(checkBoxSetVisibleWind.isChecked()){
+                    intentResult.putExtra("windyVisible", true);
+                    Log.d(TAG, "SettingsAct. WindyVisible: true");
+                }
+                else {
+                    intentResult.putExtra("windyVisible", false);
+                    Log.d(TAG, "SettingsAct. WindyVisible: false");
+                }
+
+                if(checkBoxSetVisiblePressure.isChecked()){
+                    intentResult.putExtra("pressureVisible", true);
+                    Log.d(TAG, "SettingsAct. PressureVisible: true");
+                }
+                else {
+                    intentResult.putExtra("pressureVisible", false);
+                    Log.d(TAG, "SettingsAct. PressureVisible: false");
+                }
+
+                setResult(RESULT_OK, intentResult);
                 finish();
             }
         });
@@ -172,7 +218,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if(keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    nameCity = editNameChooseCity.getText().toString();
+                    cityName = editNameChooseCity.getText().toString();
                     return true;
                 }
                 return false;
@@ -189,5 +235,7 @@ public class SettingsActivity extends AppCompatActivity implements SeekBar.OnSee
         textBtnMoscow = findViewById(R.id.textCityMoscow);
         textBtnLondon = findViewById(R.id.textCityLondon);
         textBtnNewYork = findViewById(R.id.textCityNewYork);
+        checkBoxSetVisibleWind = findViewById(R.id.checkBoxSetVisibleWind);
+        checkBoxSetVisiblePressure = findViewById(R.id.checkBoxSetVisiblePressure);
     }
 }

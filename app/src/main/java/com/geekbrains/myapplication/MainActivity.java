@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView textPressurePlusThreeHours;
     private ImageView imgBtnSettings;
     private static final String TAG = "myLogs";
-    private final static int REQUEST_CODE = 1;
+    private static final  int REQUEST_CODE = 1;
+    private TextView textUnitWindNow;
+    private TextView textUnitWindPlusOne;
+    private TextView textUnitWindPlusTwo;
+    private TextView textUnitWindPlusThree;
+    private TextView textUnitPressureNow;
+    private TextView textUnitPressurePlusOne;
+    private TextView textUnitPressurePlusTwo;
+    private TextView textUnitPressurePlusThree;
+    private boolean windyVisible = true;
+    private boolean pressureVisible = true;
+    private ImageView imgBtnWeatherToYandex;
+    private String cityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +85,48 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), instanceState + " - onCreate()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "MainAct." + instanceState + " - onCreate()");
 
-        String cityName = getString(R.string.cityNameMoscow);
+        cityName = getString(R.string.cityNameMoscow);
         textCity.setText(cityName);
         setTemp(cityName);
         findCurrentHour();
         setSettingsBtnClickBehavior();
+        setYandexBtnClickBehavior();
     }
 
+    /*Метод нажатия по кнопке "Погода Яндекса"*/
+    private void setYandexBtnClickBehavior() {
+        imgBtnWeatherToYandex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(findYandexWeatherHttp(cityName));
+                Intent browser = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(browser);
+            }
+        });
+    }
+
+    /*Метод составления http с погодой от яндекса к выбранному городу*/
+    private String findYandexWeatherHttp(String cityName) {
+        String yandexWeatherHttp = "https://yandex.ru/pogoda/";
+        switch (cityName) {
+            case "Moscow":
+            case "Москва":
+                yandexWeatherHttp += "moscow";
+                break;
+            case "London":
+            case "Лондон":
+                yandexWeatherHttp += "10393";
+                break;
+            case "New York":
+            case "Нью-Йорк":
+                yandexWeatherHttp += "202";
+                break;
+            default:
+                yandexWeatherHttp += cityName;
+                break;
+        }
+        return yandexWeatherHttp;
+    }
 
     @Override
     protected void onStart() {
@@ -92,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(saveInstanceState);
         Toast.makeText(getApplicationContext(), "Повторный запуск!! - onRestoreInstanceState()", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"MainAct. Повторный запуск!! - onRestoreInstanceState()");
+        cityName = saveInstanceState.getString("cityName");              // Восстанавливаем количество часов между прогнозами
+        textCity.setText(cityName);
+        windyVisible = saveInstanceState.getBoolean("windyVisible");
+        pressureVisible = saveInstanceState.getBoolean("pressureVisible");
+        setVisibleWindy(windyVisible);
+        setVisiblePressure(pressureVisible);
     }
 
     @Override
@@ -113,6 +167,9 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(saveInstanceState);
         Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"MainAct. onSaveInstanceState()");
+        saveInstanceState.putString("cityName", cityName); // Сохраняем название города
+        saveInstanceState.putBoolean("windyVisible", windyVisible); // Сохраняем название города
+        saveInstanceState.putBoolean("pressureVisible", pressureVisible); // Сохраняем название города
     }
 
     @Override
@@ -144,7 +201,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
 
-//                startActivity(intent);
+                intent.putExtra("CityName", textCity.getText().toString());
+
+                if (windyVisible) {
+                    intent.putExtra("WindyVisible", true);
+                } else {
+                    intent.putExtra("WindyVisible", false);
+                }
+
+                if (pressureVisible) {
+                    intent.putExtra("PressureVisible", true);
+                } else {
+                    intent.putExtra("PressureVisible", false);
+                }
+
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
@@ -158,7 +228,61 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (resultCode == RESULT_OK){
-            textCity.setText(data.getStringExtra("NameCity"));
+            textCity.setText(data.getStringExtra("CityName"));
+            cityName = data.getStringExtra("CityName");
+            windyVisible = data.getBooleanExtra("windyVisible", false);
+            pressureVisible = data.getBooleanExtra("pressureVisible", false);
+
+            setVisibleWindy(windyVisible);
+            setVisiblePressure(pressureVisible);
+        }
+    }
+
+    /*Метод скрытия/отображения из активити view относящихся к давлению*/
+    private void setVisiblePressure(boolean pressureVisible) {
+        if (!pressureVisible) {
+            textPressureNow.setVisibility(View.INVISIBLE);
+            textPressurePlusOneHour.setVisibility(View.INVISIBLE);
+            textPressurePlusTwoHours.setVisibility(View.INVISIBLE);
+            textPressurePlusThreeHours.setVisibility(View.INVISIBLE);
+            textUnitPressureNow.setVisibility(View.INVISIBLE);
+            textUnitPressurePlusOne.setVisibility(View.INVISIBLE);
+            textUnitPressurePlusTwo.setVisibility(View.INVISIBLE);
+            textUnitPressurePlusThree.setVisibility(View.INVISIBLE);
+        }
+        else {
+            textPressureNow.setVisibility(View.VISIBLE);
+            textPressurePlusOneHour.setVisibility(View.VISIBLE);
+            textPressurePlusTwoHours.setVisibility(View.VISIBLE);
+            textPressurePlusThreeHours.setVisibility(View.VISIBLE);
+            textUnitPressureNow.setVisibility(View.VISIBLE);
+            textUnitPressurePlusOne.setVisibility(View.VISIBLE);
+            textUnitPressurePlusTwo.setVisibility(View.VISIBLE);
+            textUnitPressurePlusThree.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /*Метод скрытия/отображения из активити view относящихся к ветру*/
+    private void setVisibleWindy(boolean windyVisible) {
+        if (!windyVisible) {
+            textWindNow.setVisibility(View.INVISIBLE);
+            textWindPlusOneHour.setVisibility(View.INVISIBLE);
+            textWindPlusTwoHours.setVisibility(View.INVISIBLE);
+            textWindPlusThreeHours.setVisibility(View.INVISIBLE);
+            textUnitWindNow.setVisibility(View.INVISIBLE);
+            textUnitWindPlusOne.setVisibility(View.INVISIBLE);
+            textUnitWindPlusTwo.setVisibility(View.INVISIBLE);
+            textUnitWindPlusThree.setVisibility(View.INVISIBLE);
+        }
+        else {
+            textWindNow.setVisibility(View.VISIBLE);
+            textWindPlusOneHour.setVisibility(View.VISIBLE);
+            textWindPlusTwoHours.setVisibility(View.VISIBLE);
+            textWindPlusThreeHours.setVisibility(View.VISIBLE);
+            textUnitWindNow.setVisibility(View.VISIBLE);
+            textUnitWindPlusOne.setVisibility(View.VISIBLE);
+            textUnitWindPlusTwo.setVisibility(View.VISIBLE);
+            textUnitWindPlusThree.setVisibility(View.VISIBLE);
         }
     }
 
@@ -325,6 +449,14 @@ public class MainActivity extends AppCompatActivity {
         textPressurePlusTwoHours = findViewById(R.id.textPressurePlusTwoHours);
         textPressurePlusThreeHours = findViewById(R.id.textPressurePlusThreeHours);
         imgBtnSettings = findViewById(R.id.imgBtnSettings);
-
+        textUnitWindNow = findViewById(R.id.textUnitWindNow);
+        textUnitWindPlusOne = findViewById(R.id.textUnitWindPlusOne);
+        textUnitWindPlusTwo = findViewById(R.id.textUnitWindPlusTwo);
+        textUnitWindPlusThree = findViewById(R.id.textUnitWindPlusThree);
+        textUnitPressureNow = findViewById(R.id.textUnitPressureNow);
+        textUnitPressurePlusOne = findViewById(R.id.textUnitPressurePlusOne);
+        textUnitPressurePlusTwo = findViewById(R.id.textUnitPressurePlusTwo);
+        textUnitPressurePlusThree = findViewById(R.id.textUnitPressurePlusThree);
+        imgBtnWeatherToYandex = findViewById(R.id.imageBtnWeatherFromYandex);
     }
 }

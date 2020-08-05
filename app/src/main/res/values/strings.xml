@@ -46,9 +46,6 @@
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
     <string name="units">Units</string>
-    <string name="radio_btn_moscow">Moscow</string>
-    <string name="radio_btn_london">London</string>
-    <string name="radio_btn_newyork">New York</string>
     <string name="todo">Image with type weather</string>
     <string name="text_count_hours_between_forecasts">Count of hours between forecasts: </string>
     <string name="value_count_hours_between_forecasts">TextView</string>
@@ -57,4 +54,5 @@
     <string name="city_moscow">Moscow</string>
     <string name="city_london">London</string>
     <string name="city_newyork">New York</string>
+    <string name="weather_from_yandex">Weather From Yandex</string>
 </resources>
