@@ -29,8 +29,8 @@
     <string name="textPressurePlusTwoHours">TextView</string>
     <string name="textPressurePlusThreeHours">TextView</string>
     <string name="textChooseCity">Choose city</string>
-    <string name="checkBoxSetVisibleWind">Display wind speed</string>
-    <string name="checkBoxSetVisiblePressure">Display atmospheric pressure</string>
+    <string name="checkbox_set_visible_wind">Display wind speed</string>
+    <string name="checkbox_set_visible_pressure">Display atmospheric pressure</string>
     <string name="textUnitWindS">m/s, S</string>
     <string name="textUnitWindN">m/s, N</string>
     <string name="textUnitWindW">m/s, W</string>
@@ -41,17 +41,18 @@
     <string name="textUnitWindNE">m/s, NE</string>
     <string name="textUnitPressureNow">mm</string>
     <string name="textNull"> </string>
-    <string name="hintChooseCity">Input City</string>
-    <string name="switchTypeDegree">Temperature (C/F)</string>
+    <string name="hint_choose_city">City</string>
+    <string name="switch_type_degree">Temperature (C/F)</string>
     <string name="celsius">C</string>
     <string name="fahrenheit">F</string>
-    <string name="Units">Units</string>
-    <string name="radioBtnMoscow">Moscow</string>
-    <string name="radioBtnLondon">London</string>
-    <string name="radioBtnNewYork">New York</string>
+    <string name="units">Units</string>
     <string name="todo">Image with type weather</string>
-    <string name="textCountHoursBetweenForecasts">Count of hours between forecasts: </string>
-    <string name="ValueCountHoursBetweenForecasts">TextView</string>
+    <string name="text_count_hours_between_forecasts">Count of hours between forecasts: </string>
+    <string name="value_count_hours_between_forecasts">TextView</string>
     <string name="todoImageWithBack">Image Back</string>
     <string name="todoImageWithOk">Image OK</string>
+    <string name="city_moscow">Moscow</string>
+    <string name="city_london">London</string>
+    <string name="city_newyork">New York</string>
+    <string name="weather_from_yandex">Weather From Yandex</string>
 </resources>
